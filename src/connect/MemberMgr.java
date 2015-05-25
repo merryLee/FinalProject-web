@@ -28,7 +28,7 @@ public class MemberMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "select id from tblMember where id=?";
+			sql = "select id from user where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			flag = pstmt.executeQuery().next();
@@ -50,7 +50,7 @@ public class MemberMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			sql = "select id from tblMember where id=? and pass=?";
+			sql = "select id from user where id=? and pass=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
@@ -76,7 +76,7 @@ public class MemberMgr {
 		MemberBean bean = null;
 		try {
 			con = pool.getConnection();
-			String sql = "select * from tblMember where id=?";
+			String sql = "select * from user where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
@@ -102,7 +102,7 @@ public class MemberMgr {
 		boolean flag = false;
 		try {
 			con = pool.getConnection();
-			String sql = "update tblMember set pass=?,name=?";
+			String sql = "update user set pass=?,name=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bean.getPass());
 			pstmt.setString(2, bean.getName());

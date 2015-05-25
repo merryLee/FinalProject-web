@@ -22,7 +22,7 @@
 		
 		
         <div class="cover">
-            <div class="cover-image" style="background-image : url('C:/Users/User/Desktop/Web/back1024.jpg')"></div>
+            <div class="cover-image" style="background-image : url('img/back1024.jpg')"></div>
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@page import="java.sql.*" %>
+<%@page import="java.io.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
     
@@ -34,35 +37,102 @@
         data-ride="carousel">
             <div class="carousel-inner">
             
-                <div class="item active">
-                    <img src="https://ununsplash.imgix.net/photo-1423753623104-718aaace6772?q=75&amp;fm=jpg&amp;s=1ffa61419561b5c796bca3158e7c704c">
-                    <div class="carousel-caption">
-                        <h2>Title</h2>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="https://unsplash.imgix.net/photo-1423683249427-8ca22bd873e0?q=75&amp;fm=jpg&amp;s=5e57c661d0f772ce269188a6f5325708">
-                    <div class="carousel-caption">
-                        <h2>Title</h2>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="https://unsplash.imgix.net/photo-1423347834838-5162bb452ca7?q=75&amp;fm=jpg&amp;s=c255e589621f06513c1d123c7323fe9c">
-                    <div class="carousel-caption">
-                        <h2>Title</h2>
-                        <p>Description</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <img src="back1024.jpg">
-                    <div class="carousel-caption">
-                        <h2>Title</h2>
-                        <p>Description</p>
-                    </div>
-                </div>
-                
+            <%
+		String sql = "select * from image where image_id=?";
+		String pathImage = null;
+
+		Connection conn = null;
+		PreparedStatement psmt = null;
+		FileOutputStream fos = null;
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://127.0.0.1:3306/jspdb", "jsp", "merryLeeJSP");
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+
+			ResultSet rs = psmt.executeQuery();
+
+			int i = 0;
+			rs.next();
+			InputStream is = (InputStream) rs.getBinaryStream("image_data");
+			String name = rs.getString("image_time").substring(0, 10);
+			fos = new FileOutputStream("C:/Users/User/workspace/project2/WebContent/img/" + name + "(" + i + ")"
+					+ ".jpg");
+
+			if (fos != null)
+				pathImage = "C:/Users/User/workspace/project2/WebContent/img/" + name + "(" + i + ")" + ".jpg";
+			
+			byte[] b = new byte[1024];
+			int n;
+			while ((n = is.read(b)) > 0) {
+				fos.write(b, 0, n);
+			}
+			i++;%>
+							<div class="item active">
+					<img src=<%=pathImage %>>
+					<div class="carousel-caption">
+						<h2>Title</h2>
+						<p><%=name %></p>
+					</div>
+				</div>
+				<%
+	
+			
+			while (rs.next()) {
+
+				is = (InputStream) rs.getBinaryStream("image_data");
+				name = rs.getString("image_time").substring(0, 10);
+				fos = new FileOutputStream("C:/Users/User/workspace/project2/WebContent/img/" + name + "(" + i + ")"
+						+ ".jpg");
+
+				if (fos != null)
+					pathImage = "C:/Users/User/workspace/project2/WebContent/img/" + name + "(" + i + ")" + ".jpg";
+				
+				b = new byte[1024];
+
+				while ((n = is.read(b)) > 0) {
+					fos.write(b, 0, n);
+				}
+		i++;
+		%>
+				<div class="item">
+					<img src=<%=pathImage %>>
+					<div class="carousel-caption">
+						<h2>Title</h2>
+						<p><%=name%></p>
+					</div>
+				</div>
+<%
+		
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				try {conn.close();}
+				catch (SQLException e) {e.printStackTrace();}
+			}
+			if (psmt != null) {
+				try {psmt.close();}
+				catch (SQLException e) {e.printStackTrace();}
+			}
+			if (fos != null) {
+				try {fos.close();}
+				catch (IOException e) {e.printStackTrace();}
+			}
+		}
+%>
+            
+
+
                 
             </div>
             <a class="left carousel-control" href="#fullcarousel-example" data-slide="prev"><i class="icon-prev fa fa-angle-left"></i></a>

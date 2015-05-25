@@ -41,7 +41,7 @@
 	<form name="loginForm" method="post" action="LoginProc.jsp">
 						<div class="form-group">
 							<label class="control-label">ID</label>
-							<input class="form-control" type="text" name="id" value="">
+							<input class="form-control" placeholder="ID" type="text" name="id" value="">
 						</div>
 						<div class="form-group">
 							<label class="control-label" for="exampleInputPassword1">Password</label>
