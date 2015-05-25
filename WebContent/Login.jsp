@@ -26,6 +26,7 @@
 </head>
 
 <body>
+
    	<%
 			if (id != null) { 
 		%>
@@ -48,7 +49,7 @@
 							<input class="form-control" id="exampleInputPassword1"
 								placeholder="Password" type="password" name="pass" value="">
 						</div>
-						<button type="submit" class="btn btn-default" onclick="loginCheck()">Submit</button>
+						<button type="submit" class="btn btn-default" onclick="loginCheck()">로그인</button>
 					</form>
 				</div>
 			</div>

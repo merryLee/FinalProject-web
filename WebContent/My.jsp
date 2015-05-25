@@ -15,6 +15,7 @@
     </head>
     
     <body>
+    
     	<%
 			if (id == null) { 		
 		%>
@@ -61,7 +62,7 @@
 					+ ".jpg");
 
 			if (fos != null)
-				pathImage = "C:/Users/User/workspace/project2/WebContent/img/" + name + "(" + i + ")" + ".jpg";
+				pathImage = "img/" + name + "(" + i + ")" + ".jpg";
 			
 			byte[] b = new byte[1024];
 			int n;
@@ -87,7 +88,7 @@
 						+ ".jpg");
 
 				if (fos != null)
-					pathImage = "C:/Users/User/workspace/project2/WebContent/img/" + name + "(" + i + ")" + ".jpg";
+					pathImage = "img/" + name + "(" + i + ")" + ".jpg";
 				
 				b = new byte[1024];
 
