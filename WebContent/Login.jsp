@@ -28,7 +28,7 @@
 <body>
 
    	<%
-			if (id != null) { 
+			if (id != null) {
 		%>
 		<%@ include file = "TopLogout.jsp" %>
 		<%} else {%>
@@ -37,8 +37,8 @@
 
 	<div class="section">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
+			<div class="row" style="align:center!important;">
+				<div class="col-md-12" style="padding-right:20%;padding-left:20%;">
 	<form name="loginForm" method="post" action="LoginProc.jsp">
 						<div class="form-group">
 							<label class="control-label">ID</label>
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<%}%>
 </body>
 

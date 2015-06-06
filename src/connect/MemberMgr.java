@@ -3,7 +3,6 @@ package connect;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Vector;
 
 import connect.DBConnectionMgr;
 
@@ -19,7 +18,6 @@ public class MemberMgr {
 		}
 	}
 
-	// ID �ߺ�Ȯ��
 	public boolean checkId(String id) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -40,8 +38,6 @@ public class MemberMgr {
 		return flag;
 	}
 
-
-	// /�α���
 	public boolean loginMember(String id, String pass) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -63,59 +59,4 @@ public class MemberMgr {
 		}
 		return flag;
 	}
-
-	/*************
-	 * ch16 �ʿ��� �޼ҵ�
-	 * ************/
-
-	// ȸ��������������
-	public MemberBean getMember(String id) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		MemberBean bean = null;
-		try {
-			con = pool.getConnection();
-			String sql = "select * from user where id=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				bean = new MemberBean();
-				bean.setId(rs.getString("id"));
-				bean.setPass(rs.getString("pass"));
-				bean.setName(rs.getString("name"));
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con);
-		}
-		return bean;
-	}
-
-	// ȸ����������
-	public boolean updateMember(MemberBean bean) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean flag = false;
-		try {
-			con = pool.getConnection();
-			String sql = "update user set pass=?,name=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, bean.getPass());
-			pstmt.setString(2, bean.getName());
-
-			int count = pstmt.executeUpdate();
-			if (count > 0)
-				flag = true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			pool.freeConnection(con, pstmt);
-		}
-		return flag;
-	}
-
 }
